@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['senior-care-4343252e6002.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -47,6 +47,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'base.apps.BaseConfig',
+]
+
+THIRD_PARTY_APPS = [
+    "django_filters",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "rest_framework",
+    # 'rest_framework_json_api',
+    "django_extensions",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -142,14 +157,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS =[
-    BASE_DIR / 'static'
+#STATIC_URL = 'static/'
+#STATICFILES_DIRS =[
+    #BASE_DIR / 'static'
+#]
+#STATIC_ROOT = BASE_DIR/ 'staticfiles'
+
+#STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# STATIC
+# ------------------------------------------------------------------------------
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+APPS_DIR = ROOT_DIR / "backend" #Main Django App Folder Name
+
+STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    str(APPS_DIR / "static"),
 ]
-STATIC_ROOT = BASE_DIR/ 'staticfiles'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
